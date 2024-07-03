@@ -1,15 +1,62 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erreur</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <div th:replace="~{supplement::head_meta}"></div>
+
+    <link rel="stylesheet" href="/plugins/animate/animate.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap-material-design.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
 </head>
-<body>
-<div class="container">
-    <h1>Page d'erreur</h1>
-    <p>Une erreur inattendue s'est produite. Veuillez réessayer plus tard.</p>
+
+<body class="fixed-left">
+
+<!-- Begin page -->
+<div class="accountbg_error"></div>
+<div class="wrapper-page">
+    <div class="display-table">
+        <div class="display-table-cell">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="/images/extra.png" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-block">
+
+                                <div class="ex-page-content text-center">
+                                    <h1 class="">404!</h1>
+                                    <h3 class="text-primary">Désolé, ressource inaccessible</h3><br>
+
+                                    <a class="btn btn-raised btn-primary mb-5 waves-effect waves-light" href="/">Retour à l'acceuil</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- jQuery  -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap-material-design.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/detect.js"></script>
+<script src="/js/fastclick.js"></script>
+<script src="/js/jquery.slimscroll.js"></script>
+<script src="/js/jquery.blockUI.js"></script>
+<script src="/js/waves.js"></script>
+<script src="/js/jquery.nicescroll.js"></script>
+<script src="/js/jquery.scrollTo.min.js"></script>
+
+<!-- App js -->
+<script src="/js/app.js"></script>
+
 </body>
 </html>

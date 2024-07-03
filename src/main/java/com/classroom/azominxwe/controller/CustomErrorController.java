@@ -10,6 +10,6 @@ public class CustomErrorController implements ErrorController {
     @GetMapping("/error")
     public String handleError() {
         // Vous pouvez ajouter une logique ici pour gérer les erreurs
-        return "error"; // Retourne une vue appelée "error"
+        return "erreur"; // Retourne une vue appelée "error"
     }
 }

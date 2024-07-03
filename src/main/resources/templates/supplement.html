@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>AZOMINXWE - Gestion d'Etablissements</title>
-    <meta content="Admin Dashboard" name="description" />
-    <meta content="Mannatthemes" name="author" />
+    <meta content="AZOMINXWE" name="description" />
+    <meta content="Graoupe 4 ENEAM" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="/images/favicon.ico">
 </div>
@@ -33,7 +33,7 @@
                         <div class="dropdown-item noti-title">
                             <h5>Bienvenue <span th:text="${fullName}" class="font-weight-bold"></span></h5>
                         </div>
-                        <a class="dropdown-item" href="#">
+                     <!--   <a class="dropdown-item" href="#">
                             <i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
                         <a class="dropdown-item" href="#">
                             <i class="mdi mdi-wallet m-r-5 text-muted"></i> My Wallet</a>
@@ -42,9 +42,16 @@
                             <i class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
                         <a class="dropdown-item" href="#">
                             <i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
+                        <div class="dropdown-divider"></div>-->
+                        <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit();">
+                            <i class="mdi mdi-logout m-r-5 text-muted"></i> Sortie</a>
+
+                        <form th:action="@{/logout}" method="post" style="display: inline;" hidden>
+                            <button type="submit" class="dropdown-item" style="background: none; border: none; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer;">
+                                <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout
+                            </button>
+                        </form>
+
                     </div>
                 </li>
             </ul>

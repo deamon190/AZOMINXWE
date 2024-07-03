@@ -17,7 +17,7 @@ public class MainController {
         }
 
         if (logout != null) {
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("message", "Vous avez été déconnecté avec succès.");
         }
 
         return "login";

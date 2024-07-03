@@ -3175,6 +3175,16 @@ select.custom-file-control:not([size]):not([multiple]), select.form-control:not(
   background-size: cover;
 }
 
+.accountbg_error {
+  background: url("../images/background_error.png");
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-position: center center;
+  background-size: cover;
+}
+
+
 .wrapper-page {
   max-width: 100%;
   position: relative;
