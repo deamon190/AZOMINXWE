@@ -4,6 +4,8 @@ import com.classroom.azominxwe.model.*;
 import com.classroom.azominxwe.repository.ClasseMatiereRepository;
 import com.classroom.azominxwe.repository.MoyenneTrimestreRepository;
 import com.classroom.azominxwe.repository.NoteRepository;
+import com.classroom.azominxwe.repository.MoyenneMatiereRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,10 @@ public class MoyenneTrimestreService {
     private TrimestreService trimestreService;
 
 
+    @Autowired
+    private MoyenneMatiereRepository moyenneMatiereRepository;
+
+
     public List<MoyenneTrimestre> getAllMoyennesTrimestre() {
         return moyenneTrimestreRepository.findAll();
     }
@@ -34,56 +40,103 @@ public class MoyenneTrimestreService {
         return moyenneTrimestreRepository.findById(id);
     }
 
-    public void calculerMoyenneParTrimestre(Long trimestreId) {
-        List<Note> notes = noteRepository.findByTrimestre_TrimestreId(trimestreId);
 
-        // Récupérer toutes les matières pour les classes concernées par le trimestre
-        Map<Eleve, Set<ClasseMatiere>> matieresParClasse = notes.stream()
-                .collect(Collectors.groupingBy(
-                        Note::getEleve,
-                        Collectors.mapping(Note::getClasseMatiere, Collectors.toSet())
-                ));
+        @Transactional
+        public void calculerMoyenneParTrimestre(Long trimestreId) {
+            List<Note> notes = noteRepository.findByTrimestre_TrimestreId(trimestreId);
 
-        // Calcul des moyennes
-        notes.stream()
-                .collect(Collectors.groupingBy(Note::getEleve))
-                .forEach((eleve, notesEleve) -> {
-                    Set<ClasseMatiere> matieresClasse = matieresParClasse.getOrDefault(eleve, Collections.emptySet());
+            // Récupérer toutes les matières pour les classes concernées par le trimestre
+            Map<Eleve, Set<ClasseMatiere>> matieresParClasse = notes.stream()
+                    .collect(Collectors.groupingBy(
+                            Note::getEleve,
+                            Collectors.mapping(Note::getClasseMatiere, Collectors.toSet())
+                    ));
 
-                    Map<ClasseMatiere, Double> notesParMatiere = notesEleve.stream()
-                            .collect(Collectors.toMap(Note::getClasseMatiere, Note::getNote));
+            // Calcul des moyennes
+            notes.stream()
+                    .collect(Collectors.groupingBy(Note::getEleve))
+                    .forEach((eleve, notesEleve) -> {
+                        Set<ClasseMatiere> matieresClasse = matieresParClasse.getOrDefault(eleve, Collections.emptySet());
 
-                    double totalCoef = 0.0;
-                    double totalNoteCoef = 0.0;
+                        // Supprimer les moyennes trimestrielles obsolètes pour l'élève et le trimestre actif
+                        Trimestre trimestreActif = trimestreService.getByTrimestreId(trimestreId);
+                        moyenneTrimestreRepository.deleteByEleveAndTrimestreAndClasseNot(eleve, trimestreActif, notesEleve.get(0).getClasseMatiere().getClasse());
 
-                    for (ClasseMatiere classeMatiere : matieresClasse) {
-                        double coef = classeMatiere.getCoefficient();
-                        double note = notesParMatiere.getOrDefault(classeMatiere, 0.0);
+                        double totalCoef = 0.0;
+                        double totalNoteCoef = 0.0;
 
-                        totalNoteCoef += note * coef;
-                    }
+                        for (ClasseMatiere classeMatiere : matieresClasse) {
+                            // Calcul des moyennes par matière
+                            double coef = classeMatiere.getCoefficient();
+                            double moyenneNote = notesEleve.stream()
+                                    .filter(note -> note.getClasseMatiere().equals(classeMatiere))
+                                    .collect(Collectors.averagingDouble(Note::getNote));
 
-                    Classe classe = notesEleve.get(0).getClasseMatiere().getClasse();
-                    totalCoef = classeMatiereRepository.findSumCoefficientByClasseId(classe.getClasseId());
+                            // Rechercher s'il existe déjà une MoyenneMatiere pour cette combinaison
+                            Optional<MoyenneMatiere> moyenneMatiereOpt = moyenneMatiereRepository.findByEleveAndClasseMatiereAndTrimestre(eleve, classeMatiere, trimestreActif);
 
-                    double moyenne = totalCoef > 0 ? totalNoteCoef / totalCoef : 0;
+                            MoyenneMatiere moyenneMatiere;
+                            if (moyenneMatiereOpt.isPresent()) {
+                                moyenneMatiere = moyenneMatiereOpt.get();
+                            } else {
+                                moyenneMatiere = new MoyenneMatiere();
+                                moyenneMatiere.setEleve(eleve);
+                                moyenneMatiere.setClasseMatiere(classeMatiere);
+                                moyenneMatiere.setTrimestre(trimestreActif);
+                            }
 
-                    // Rechercher s'il existe déjà une MoyenneTrimestre pour cette combinaison
-                    MoyenneTrimestre moyenneTrimestre = moyenneTrimestreRepository
-                            .findByClasseAndEleveAndTrimestre(classe, eleve, trimestreService.getByTrimestreId(trimestreId));
+                            // Mettre à jour la moyenne par matière
+                            moyenneMatiere.setMoyenne(moyenneNote);
+                            moyenneMatiereRepository.save(moyenneMatiere);
 
-                    if (moyenneTrimestre == null) {
-                        moyenneTrimestre = new MoyenneTrimestre();
-                        moyenneTrimestre.setEleve(eleve);
-                        moyenneTrimestre.setClasse(classe);
-                        moyenneTrimestre.setTrimestre(trimestreService.getByTrimestreId(trimestreId));
-                    }
+                            totalNoteCoef += moyenneNote * coef;
+                        }
 
-                    moyenneTrimestre.setMoyenne(moyenne);
+                        // Ajouter les matières sans note avec une moyenne de 0
+                        List<ClasseMatiere> allClasseMatieres = classeMatiereRepository.findByClasse_ClasseId(notesEleve.get(0).getClasseMatiere().getClasse().getClasseId());
+                        for (ClasseMatiere classeMatiere : allClasseMatieres) {
+                            if (!matieresClasse.contains(classeMatiere)) {
+                                Optional<MoyenneMatiere> moyenneMatiereOpt = moyenneMatiereRepository.findByEleveAndClasseMatiereAndTrimestre(eleve, classeMatiere, trimestreActif);
+                                MoyenneMatiere moyenneMatiere;
+                                if (moyenneMatiereOpt.isPresent()) {
+                                    moyenneMatiere = moyenneMatiereOpt.get();
+                                } else {
+                                    moyenneMatiere = new MoyenneMatiere();
+                                    moyenneMatiere.setEleve(eleve);
+                                    moyenneMatiere.setClasseMatiere(classeMatiere);
+                                    moyenneMatiere.setTrimestre(trimestreActif);
+                                }
+                                moyenneMatiere.setMoyenne(0.0);
+                                moyenneMatiereRepository.save(moyenneMatiere);
+                            }
+                        }
 
-                    moyenneTrimestreRepository.save(moyenneTrimestre);
-                });
-    }
+                        Classe classe = notesEleve.get(0).getClasseMatiere().getClasse();
+                        totalCoef =classeMatiereRepository.findSumCoefficientByClasseId(classe.getClasseId());
+
+                        double moyenne = totalCoef > 0 ? totalNoteCoef / totalCoef : 0;
+
+                        // Rechercher s'il existe déjà une MoyenneTrimestre pour cette combinaison
+                        Optional<MoyenneTrimestre> moyenneTrimestreOpt = moyenneTrimestreRepository
+                                .findByClasseAndEleveAndTrimestre(classe, eleve, trimestreActif);
+
+                        MoyenneTrimestre moyenneTrimestre;
+                        if (moyenneTrimestreOpt.isPresent()) {
+                            moyenneTrimestre = moyenneTrimestreOpt.get();
+                        } else {
+                            moyenneTrimestre = new MoyenneTrimestre();
+                            moyenneTrimestre.setEleve(eleve);
+                            moyenneTrimestre.setClasse(classe);
+                            moyenneTrimestre.setTrimestre(trimestreActif);
+                        }
+
+                        moyenneTrimestre.setMoyenne(moyenne);
+
+                        moyenneTrimestreRepository.save(moyenneTrimestre);
+                    });
+        }
+
+
 
     public MoyenneTrimestre saveMoyenneTrimestre(MoyenneTrimestre moyenneTrimestre) {
         return moyenneTrimestreRepository.save(moyenneTrimestre);

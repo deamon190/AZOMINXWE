@@ -17,7 +17,7 @@ public class Trimestre {
     private Long trimestreId;
     @NotBlank(message = "Le nom du trimestre ne peut pas être vide")
     @Size(min = 2, max = 40, message = "Le nom du Trimestre doit être entre 2 et 40 caractères")
-    @Pattern(regexp = "^Trimestre [1-4]$", message = "Le nom du trimestre doit être sous la forme 'Trimestre [1-4]'")
+    @Pattern(regexp = "^Trimestre [1-3]$", message = "Le nom du trimestre doit être sous la forme 'Trimestre [1-3]'")
     private String nom;
 
     @NotNull(message = "La date de début ne peut pas être nulle")
@@ -40,6 +40,9 @@ public class Trimestre {
 
     @OneToMany(mappedBy = "trimestre")
     private Set<MoyenneTrimestre> moyennesTrimestre;
+
+    @OneToMany(mappedBy = "trimestre")
+    private Set<MoyenneMatiere> moyennesMatieres;
 
     // Getters and Setters
     public Long getTrimestreId() {
@@ -105,4 +108,13 @@ public class Trimestre {
     public void setActif(Boolean actif) {
         this.actif = actif;
     }
+
+    public Set<MoyenneMatiere> getMoyennesMatieres() {
+        return moyennesMatieres;
+    }
+
+    public void setMoyennesMatieres(Set<MoyenneMatiere> moyennesMatieres) {
+        this.moyennesMatieres = moyennesMatieres;
+    }
+
 }

@@ -9,14 +9,34 @@
     <link rel="stylesheet" href="/plugins/chartist/chartist.min.css">
     <link rel="stylesheet" href="/plugins/morris/morris.css">
     <link rel="stylesheet" href="/plugins/metro/MetroJs.min.css">
-
     <link rel="stylesheet" href="/plugins/carousel/owl.carousel.min.css">
     <link rel="stylesheet" href="/plugins/carousel/owl.theme.default.min.css">
-
     <link rel="stylesheet" href="/plugins/animate/animate.css" type="text/css">
     <link rel="stylesheet" href="/css/bootstrap-material-design.min.css" type="text/css">
     <link rel="stylesheet" href="/css/icons.css" type="text/css">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/plugins/select2/select2.min.css">
+
+    <style>
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .select2-container .select2-selection--single {
+            height: 3.5rem; /* Adjust the height as needed */
+            margin-top: 1rem;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-top: 0.75rem; /* Adjust the padding as needed */
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 3.5rem; /* Match the height of the selection box */
+            top: 0.75rem; /* Adjust the position as needed */
+        }
+        .bmd-label-floating {
+            top: -1.5rem; /* Adjust the top position to align the label */
+        }
+    </style>
 </head>
 
 <body class="fixed-left">
@@ -71,7 +91,7 @@
                                             <div class="col-md-12 col-lg-12 col-xl-12">
                                                 <div class="card m-b-30">
                                                     <div class="card-body">
-                                                        <h4 class="mt-0 header-title"><a href="/notes/new" class="btn btn-primary">Ajouter une note</a> </h4>
+                                                        <h4 class="mt-0 header-title"><a href="/notes/new" class="btn btn-primary">Ajouter une note</a></h4>
                                                         <div th:if="${message}" class="alert alert-primary alert-dismissible fade show" role="alert">
                                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                                 <span aria-hidden="true">×</span>
@@ -86,11 +106,30 @@
                                                             <strong>Attention:</strong> <span th:text="${erreur}"></span>
                                                         </div>
 
-                                                        <table class="table mb-0 table-bordered" style="width: 80%;">
+                                                        <!-- Filters -->
+                                                        <div class="form-group">
+                                                            <label for="select-student">Filtrer par nom et prénom :</label>
+                                                            <select id="select-student" class="form-control select2">
+                                                                <option value="">Sélectionner un étudiant</option>
+                                                                <option th:each="eleve : ${eleves}" th:value="${eleve[0]}"
+                                                                        th:text="${eleve[1]}"></option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="select-classe-matiere">Filtrer par classe-matière :</label>
+                                                            <select id="select-classe-matiere" class="form-control select2">
+                                                                <option value="">Sélectionner une classe-matière</option>
+                                                                <option th:each="classeMatiere : ${classeMatieres}" th:value="${classeMatiere[0]}"
+                                                                        th:text="${classeMatiere[1]}"></option>
+                                                            </select>
+                                                        </div>
+
+                                                        <table id="notes-table" class="table mb-0 table-bordered" style="width: 100%;">
                                                             <thead class="thead-default">
                                                             <tr>
                                                                 <th>ID</th>
-                                                                <th>Eleve</th>
+                                                                <th>Élève</th>
                                                                 <th>Classe-Matière</th>
                                                                 <th>Coeff</th>
                                                                 <th>Note</th>
@@ -100,9 +139,9 @@
                                                             <tbody>
                                                             <tr th:each="note : ${notes}">
                                                                 <td th:text="${note.noteId}"></td>
-                                                                <td th:text="${note.eleve.nom + ' ' + note.eleve.prenom}"></td>
-                                                                <td th:text="${note.classeMatiere.classe.nomClasse + '-' + note.classeMatiere.matiere.nomCourtMatiere}"></td>
-                                                                <td th:text="${note.classeMatiere.getCoefficient()}"></td>
+                                                                <td th:text="${note.eleve.nom + ' ' + note.eleve.prenom}" th:data-student-id="${note.eleve.eleveId}"></td>
+                                                                <td th:text="${note.classeMatiere.classe.nomClasse + '-' + note.classeMatiere.matiere.nomCourtMatiere}" th:data-classe-matiere-id="${note.classeMatiere.classeMatiereId}"></td>
+                                                                <td th:text="${note.classeMatiere.coefficient}"></td>
                                                                 <td th:text="${note.note}"></td>
                                                                 <td>
                                                                     <a th:href="@{/notes/{id}(id=${note.noteId})}" class="btn btn-info">Détails</a>
@@ -161,8 +200,33 @@
 <script src="/plugins/metro/MetroJs.min.js"></script>
 <script src="/plugins/raphael/raphael.min.js"></script>
 <script src="/plugins/morris/morris.min.js"></script>
+<script src="/plugins/select2/select2.min.js"></script>
 <script src="/js/dashborad.js"></script>
-<!-- App js -->
 <script src="/js/app.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+
+        $('#select-student, #select-classe-matiere').on('change', function() {
+            var selectedStudentId = $('#select-student').val();
+            var selectedClasseMatiereId = $('#select-classe-matiere').val();
+            filterTable(selectedStudentId, selectedClasseMatiereId);
+        });
+    });
+
+    function filterTable(studentId, classeMatiereId) {
+        $('#notes-table tbody tr').each(function() {
+            var row = $(this);
+            var studentMatch = studentId === "" || row.find('td[data-student-id]').attr('data-student-id') == studentId;
+            var classeMatiereMatch = classeMatiereId === "" || row.find('td[data-classe-matiere-id]').attr('data-classe-matiere-id') == classeMatiereId;
+
+            if (studentMatch && classeMatiereMatch) {
+                row.show();
+            } else {
+                row.hide();
+            }
+        });
+    }
+</script>
 </body>
 </html>

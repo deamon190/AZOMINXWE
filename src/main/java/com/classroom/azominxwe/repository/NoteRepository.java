@@ -15,14 +15,17 @@ import java.util.List;
 public interface NoteRepository extends JpaRepository<Note, Long> {
     // Méthodes de recherche personnalisées peuvent être ajoutées ici
     // Récupérer les notes par trimestre actif
-    List<Note> findByTrimestreActifTrueOrderByEleve();
+    @Query("SELECT n FROM Note n WHERE n.trimestre.actif = true " +
+            "ORDER BY n.eleve.nom ASC, n.eleve.prenom ASC, " +
+            "n.classeMatiere.classe.nomClasse ASC, n.classeMatiere.matiere.nomCourtMatiere ASC")
+    List<Note> findByTrimestreActifTrueOrderByEleveNomAscElevePrenomAscClasseMatiere();
 
     List<Note> findByTrimestre_TrimestreId(Long trimestreId);
 
     @Query("SELECT n.classeMatiere.classeMatiereId FROM Note n WHERE n.eleve.eleveId = :eleveId and n.trimestre.actif=true")
     List<Long> findClasseMatiereIdsByEleveId(Long eleveId);
 
-    @Query("SELECT n.classeMatiere.classeMatiereId FROM Note n WHERE n.eleve.eleveId = :eleveId and n.trimestre.actif=true")
+    @Query("SELECT n.classeMatiere.classeMatiereId FROM Note n WHERE n.eleve.eleveId = :eleveId and n.trimestre.anneeAcademique.actif=true")
     List <Long> findFirstClasseMatiereIdByEleveId(@Param("eleveId") Long eleveId, PageRequest pageRequest);
 
     //Récuperer les classesM avec la contrainte de classe existante
@@ -30,5 +33,9 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<ClasseMatiere> findClasseMatiereIdsByEleveIdAndClasse(Long eleveId, Long classeId);
 
     List<Note> findByEleveAndTrimestre(Eleve eleve, Trimestre trimestre);
+
+    Boolean existsByClasseMatiere_ClasseMatiereIdAndTrimestre_TrimestreIdAndEleve_EleveId(
+            Long classeMatiereId, Long trimestreId, Long eleveId);
+
 
 }

@@ -1,5 +1,6 @@
 package com.classroom.azominxwe.controller;
 
+import com.classroom.azominxwe.dto.ClasseMatiereDTO;
 import com.classroom.azominxwe.model.ClasseMatiere;
 import com.classroom.azominxwe.model.Eleve;
 import com.classroom.azominxwe.model.Note;
@@ -40,13 +41,17 @@ public class NoteController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("notes", noteService.getNotesParTrimestreActif());
+        model.addAttribute("eleves", getEleveNomPrenomCombines());
+        model.addAttribute("classeMatieres", getClasseMatiereCombines());
         return "notes/list";
     }
+
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Optional<Note> note = noteService.getNoteById(id);
         if (note.isPresent()) {
+            List<ClasseMatiereDTO> t= classeMatiereService.getClasseMatieresForEleve(note.get().getEleve().getEleveId());
             model.addAttribute("note", note.get());
             model.addAttribute("eleves", getEleveNomPrenomCombines());
             model.addAttribute("classeMatieres", classeMatiereService.getClasseMatieresForEleve(note.get().getEleve().getEleveId()));

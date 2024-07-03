@@ -69,16 +69,13 @@ public class ClasseMatiereService {
 
     @Transactional
     public List<ClasseMatiereDTO> getClasseMatieresForEleve(Long eleveId) {
-
         List<Long> classeMatiereIdsWithNotes = noteRepository.findClasseMatiereIdsByEleveId(eleveId);
         Long firstClasseMatiere = getFirstClasseMatiereIdForEleve(eleveId);
 
         if (firstClasseMatiere == null) {
-            //Aucun enregistrement d'abord
-
+            // Aucun enregistrement d'abord
             return classeMatiereRepository.findByClasse_AnneeAcademique_ActifTrue()
                     .stream()
-                   // .filter(classeMatiere -> !classeMatiereIdsWithNotes.contains(classeMatiere.getClasseMatiereId()))
                     .map(classeMatiere -> new ClasseMatiereDTO(
                             classeMatiere.getClasseMatiereId(),
                             classeMatiere.getClasse().getNomClasse(),
@@ -86,23 +83,17 @@ public class ClasseMatiereService {
                     ))
                     .collect(Collectors.toList());
         } else {
-            ClasseMatiere classMTmp= classeMatiereRepository.findByClasseMatiereId(firstClasseMatiere);
-            System.out.println(firstClasseMatiere);
-            ClasseMatiere th=classeMatiereRepository.findByClasseMatiereId(firstClasseMatiere);
+            ClasseMatiere classMTmp = classeMatiereRepository.findByClasseMatiereId(firstClasseMatiere);
             return classeMatiereRepository.findClasseMatiereByClasseId(classMTmp.getClasse().getClasseId())
                     .stream()
-                   // .filter(classeMatiere -> !classeMatiereIdsWithNotes.contains(classeMatiere.getClasseMatiereId()))
                     .map(classeMatiere -> new ClasseMatiereDTO(
                             classeMatiere.getClasseMatiereId(),
                             classeMatiere.getClasse().getNomClasse(),
                             classeMatiere.getMatiere().getNomCourtMatiere()
                     ))
                     .collect(Collectors.toList());
-
-
         }
     }
-
 
 
 

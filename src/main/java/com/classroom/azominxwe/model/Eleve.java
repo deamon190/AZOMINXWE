@@ -26,6 +26,9 @@ public class Eleve {
     @OneToMany(mappedBy = "eleve")
     private Set<MoyenneTrimestre> moyennesTrimestre;
 
+    @OneToMany(mappedBy = "eleve")
+    private Set<MoyenneMatiere> moyennesMatieres;
+
     // Getters and Setters
     public Long getEleveId() {
         return eleveId;
@@ -74,4 +77,13 @@ public class Eleve {
     public void setMoyennesTrimestre(Set<MoyenneTrimestre> moyennesTrimestre) {
         this.moyennesTrimestre = moyennesTrimestre;
     }
+
+    public Set<MoyenneMatiere> getMoyennesMatieres() {
+        return moyennesMatieres;
+    }
+
+    public void setMoyennesMatieres(Set<MoyenneMatiere> moyennesMatieres) {
+        this.moyennesMatieres = moyennesMatieres;
+    }
+
 }

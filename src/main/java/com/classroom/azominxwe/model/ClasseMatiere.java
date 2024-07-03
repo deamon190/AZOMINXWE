@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
+import java.util.Set;
+
 @Entity
 public class ClasseMatiere {
 
@@ -24,6 +26,9 @@ public class ClasseMatiere {
     @ManyToOne
     @JoinColumn(name = "matiere_id", nullable = false)
     private Matiere matiere;
+
+    @OneToMany(mappedBy = "classeMatiere")
+    private Set<MoyenneMatiere> moyennesMatieres;
 
     // Getters and Setters
 
@@ -58,4 +63,13 @@ public class ClasseMatiere {
     public void setMatiere(Matiere matiere) {
         this.matiere = matiere;
     }
+
+    public Set<MoyenneMatiere> getMoyennesMatieres() {
+        return moyennesMatieres;
+    }
+
+    public void setMoyennesMatieres(Set<MoyenneMatiere> moyennesMatieres) {
+        this.moyennesMatieres = moyennesMatieres;
+    }
+
 }

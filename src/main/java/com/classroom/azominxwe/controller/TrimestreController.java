@@ -61,7 +61,7 @@ public class TrimestreController {
 
     @GetMapping("/new")
     public String createForm(Model model) {
-        List<String> allTrimestres = Stream.of("Trimestre 1", "Trimestre 2", "Trimestre 3", "Trimestre 4").collect(Collectors.toList());
+        List<String> allTrimestres = Stream.of("Trimestre 1", "Trimestre 2", "Trimestre 3").collect(Collectors.toList());
         List<Trimestre> existingTrimestres = trimestreService.getTrimestresByAnneeAcademiqueActive();
         availableTrimestres = allTrimestres.stream()
                 .filter(t -> existingTrimestres.stream().noneMatch(et -> et.getNom().equals(t)))

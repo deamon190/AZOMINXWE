@@ -1,218 +1,70 @@
-<div th:fragment="left_side_bar">
-<!-- ========== Left Sidebar Start ========== -->
-<div class="left side-menu">
-    <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect" title="ok">
-        <i class="mdi mdi-close"></i>
-    </button>
 
-    <!-- LOGO -->
-    <div class="topbar-left">
-        <div class="text-center">
-            <!--<a href="index.html" class="logo"><i class="mdi mdi-assistant"></i> Urora</a>-->
-            <a href="/" class="logo">
-                <img src="/images/login_logo_white.png" height="60" alt="" class="">
-            </a>
-        </div>
-    </div>
 
-    <div class="sidebar-inner slimscrollleft" id="sidebar-main">
-        <div id="sidebar-menu">
-            <ul>
-               <!-- <li class="menu-title">Main</li>-->
-                <li>
-                    <a href="index.html" class="waves-effect">
-                        <i class="mdi mdi-view-dashboard"></i>
-                        <span> Acceuil</span>
-                    </a>
-                </li>
-                <li class="menu-title">Components</li>
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <i class="mdi mdi-animation"></i>
-                        <span> UI Elements </span>
-                        <span class="float-right">
-                                    <i class="mdi mdi-chevron-right"></i>
-                                </span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="ui-badge.html">Badge</a></li>
-                        <li><a href="ui-alertify.html">Alertify</a></li>
-                        <li><a href="ui-buttons.html">Buttons</a></li>
-                        <li><a href="ui-carousel.html">Carousel</a></li>
-                        <li><a href="ui-dropdowns.html">Dropdowns</a></li>
-                        <li><a href="ui-typography.html">Typography</a></li>
-                        <li><a href="ui-cards.html">Cards</a></li>
-                        <li><a href="ui-grid.html">Grid</a></li>
-                        <li><a href="ui-rating.html">Rating</a></li>
-                        <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
-                        <li><a href="ui-modals.html">Modals</a></li>
-                        <li><a href="ui-images.html">Images</a></li>
-                        <li><a href="ui-alerts.html">Alerts</a></li>
-                        <li><a href="ui-progressbars.html">Progress Bars</a></li>
-                        <li><a href="ui-pagination.html">Pagination</a></li>
-                        <li><a href="ui-rangeslider.html">Range Slider</a></li>
-                        <li><a href="ui-navs.html">Navs</a></li>
-                        <li><a href="ui-popover-tooltips.html">Popover & Tooltips</a></li>
-                    </ul>
-                </li>
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <i class="mdi mdi-table"></i>
-                        <span> Tables </span>
-                        <span class="float-right">
-                                    <i class="mdi mdi-chevron-right"></i>
-                                </span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="tables-basic.html">Basic Tables</a></li>
-                        <li><a href="tables-datatable.html">Data Table</a></li>
-                    </ul>
-                </li>
 
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <i class="mdi mdi-cards"></i>
-                        <span> Forms </span>
-                        <span class="badge badge-pill badge-info float-right">8</span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="form-elements.html">Form Elements</a></li>
-                        <li><a href="form-validation.html">Form Validation</a></li>
-                        <li><a href="form-advanced.html">Form Advanced</a></li>
-                        <li><a href="form-mask.html">Form Mask</a></li>
-                        <li><a href="form-editors.html">Form Editors</a></li>
-                        <li><a href="form-uploads.html">Form File Upload</a></li>
-                    </ul>
-                </li>
-
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <i class="mdi mdi-emoticon-poop"></i>
-                        <span> Icons </span>
-                        <span class="float-right">
-                                    <i class="mdi mdi-chevron-right"></i>
-                                </span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="icons-material.html">Material Design</a></li>
-                        <li><a href="icons-fontawesome.html">Font Awesome</a></li>
-                        <li><a href="icons-themify.html">Themify Icons</a></li>
-                    </ul>
-                </li>
-
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <i class="mdi mdi-chart-areaspline"></i>
-                        <span> Charts </span>
-                        <span class="float-right">
-                                    <i class="mdi mdi-chevron-right"></i>
-                                </span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="charts-morris.html">Morris Chart</a></li>
-                        <li><a href="charts-chartist.html">Chartist Chart</a></li>
-                        <li><a href="charts-chartjs.html">Chartjs Chart</a></li>
-                        <li><a href="charts-flot.html">Flot Chart</a></li>
-                        <li><a href="charts-c3.html">C3 Chart</a></li>
-                        <li><a href="charts-xchart.html">X Chart</a></li>
-                        <li><a href="charts-other.html">Jquery Knob Chart</a></li>
-                    </ul>
-                </li>
-
-                <li class="menu-title">Extra</li>
-
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <i class="mdi mdi-map-marker-multiple"></i>
-                        <span> Maps </span>
-                        <span class="badge badge-pill badge-danger float-right">2</span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="maps-google.html"> Google Map</a></li>
-                        <li><a href="maps-vector.html"> Vector Map</a></li>
-                    </ul>
-                </li>
-
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <i class="mdi mdi-layers"></i>
-                        <span> Pages </span>
-                        <span class="float-right">
-                                    <i class="mdi mdi-chevron-right"></i>
-                                </span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="pages-login.html">Login</a></li>
-                        <li><a href="pages-register.html">Register</a></li>
-                        <li><a href="pages-recoverpw.html">Recover Password</a></li>
-                        <li><a href="pages-lock-screen.html">Lock Screen</a></li>
-                        <li><a href="pages-blank.html">Blank Page</a></li>
-                        <li><a href="pages-404.html">Error 404</a></li>
-                        <li><a href="pages-500.html">Error 500</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <!-- end sidebarinner -->
-</div>
-<!-- Left Sidebar End -->
+<div th:fragment="head_meta">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>AZOMINXWE - Gestion d'Etablissements</title>
+    <meta content="Admin Dashboard" name="description" />
+    <meta content="Mannatthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="/images/favicon.ico">
 </div>
 
 <div th:fragment="topbar">
-<!-- Top Bar Start -->
-<div class="topbar">
-    <nav class="navbar-custom">
-        <div class="dropdown notification-list nav-pro-img">
-        </div>
+    <!-- Top Bar Start -->
+    <div class="topbar">
+        <nav class="navbar-custom">
+            <div class="dropdown notification-list nav-pro-img">
+            </div>
 
-        <ul class="list-inline float-right mb-0 mr-3">
-            <!-- language-->
+            <ul class="list-inline float-right mb-0 mr-3">
+                <!-- language-->
 
-            <li class="list-inline-item dropdown notification-list">
-                <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
-                   aria-expanded="false">
-                    <img th:if="${imageUrl != null && !imageUrl.isEmpty()}" th:src="${imageUrl}" class="rounded-circle img-thumbnail" alt="User Image" />
-                    <img th:if="${imageUrl == null || imageUrl.isEmpty()}" src="/images/users/avatar-1.jpg" class="rounded-circle img-thumbnail" alt="Default User Image" />
-                </a>
-                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                    <!-- item-->
-                    <div class="dropdown-item noti-title">
-                        <h5>Bienvenue <span th:text="${fullName}" class="font-weight-bold"></span></h5>
+                <li class="list-inline-item dropdown notification-list">
+                    <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                       aria-expanded="false">
+                        <img th:if="${imageUrl != null && !imageUrl.isEmpty()}" th:src="${imageUrl}" class="rounded-circle img-thumbnail" alt="User Image" />
+                        <img th:if="${imageUrl == null || imageUrl.isEmpty()}" src="/images/users/avatar-1.jpg" class="rounded-circle img-thumbnail" alt="Default User Image" />
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                        <!-- item-->
+                        <div class="dropdown-item noti-title">
+                            <h5>Bienvenue <span th:text="${fullName}" class="font-weight-bold"></span></h5>
+                        </div>
+                        <a class="dropdown-item" href="#">
+                            <i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
+                        <a class="dropdown-item" href="#">
+                            <i class="mdi mdi-wallet m-r-5 text-muted"></i> My Wallet</a>
+                        <a class="dropdown-item d-block" href="#">
+                            <span class="badge badge-success float-right">5</span>
+                            <i class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
+                        <a class="dropdown-item" href="#">
+                            <i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
                     </div>
-                    <a class="dropdown-item" href="#">
-                        <i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
-                    <a class="dropdown-item" href="#">
-                        <i class="mdi mdi-wallet m-r-5 text-muted"></i> My Wallet</a>
-                    <a class="dropdown-item d-block" href="#">
-                        <span class="badge badge-success float-right">5</span>
-                        <i class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
-                    <a class="dropdown-item" href="#">
-                        <i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
 
-        <ul class="list-inline menu-left mb-0">
-            <li class="float-left">
-                <button class="button-menu-mobile open-left waves-light waves-effect">
-                    <i class="mdi mdi-menu"></i>
-                </button>
-            </li>
-        </ul>
+            <ul class="list-inline menu-left mb-0">
+                <li class="float-left">
+                    <button class="button-menu-mobile open-left waves-light waves-effect">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                </li>
+            </ul>
 
-        <div class="clearfix"></div>
-    </nav>
-</div>
-<!-- Top Bar End -->
+            <div class="clearfix"></div>
+        </nav>
+    </div>
+    <!-- Top Bar End -->
 </div>
 
 <div th:fragment="statistics">
-<!-- Statistics -->
+    <!-- Statistics -->
     <div class="row">
         <div class="col-sm-12 col-md-6 col-xl-3">
             <div class="card bg-danger m-b-30">
@@ -295,7 +147,7 @@
         </div>
     </div>
 
-<!-- Statistics End -->
+    <!-- Statistics End -->
 </div>
 
 <div th:fragment="footer">
@@ -304,13 +156,172 @@
     </footer>
 </div>
 
-<div th:fragment="head_meta">
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>AZOMINXWE - Gestion d'Etablissements</title>
-    <meta content="Admin Dashboard" name="description" />
-    <meta content="Mannatthemes" name="author" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="shortcut icon" href="/images/favicon.ico">
+<div th:fragment="left_side_bar">
+    <!-- /src/main/resources/templates/fragments/menu.html -->
+    <div th:fragment="sidebar">
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu">
+            <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect" title="ok">
+                <i class="mdi mdi-close"></i>
+            </button>
+
+            <!-- LOGO -->
+            <div class="topbar-left">
+                <div class="text-center">
+                    <a href="/home" class="logo">
+                        <img src="/images/login_logo_white.png" height="60" alt="" class="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar-inner slimscrollleft" id="sidebar-main">
+                <div id="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Menu</li>
+                        <li>
+                            <a href="/home" class="waves-effect">
+                                <i class="mdi mdi-view-dashboard"></i>
+                                <span> Accueil </span>
+                            </a>
+                        </li>
+
+                        <li class="menu-title">Gestion Scolaire</li>
+
+                        <!-- Groupe: Années Académiques -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-calendar"></i>
+                                <span> Années Académiques </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/anneesAcademiques/new">Ajouter</a></li>
+                                <li><a href="/anneesAcademiques">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Groupe: Classes -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-domain"></i>
+                                <span> Classes </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/classes/new">Ajouter</a></li>
+                                <li><a href="/classes">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Groupe: Classes Matières -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-book-open-page-variant"></i>
+                                <span> Coefficients </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/classe-matiere/new">Ajouter</a></li>
+                                <li><a href="/classe-matiere">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Groupe: Élèves -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-account-multiple"></i>
+                                <span> Élèves </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/eleves/new">Ajouter</a></li>
+                                <li><a href="/eleves">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Groupe: Enseignants -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-account-settings"></i>
+                                <span> Enseignants </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/enseignants/new">Ajouter</a></li>
+                                <li><a href="/enseignants">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Groupe: Enseignements -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-content-duplicate"></i>
+                                <span> Enseignements </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/enseignements/new">Ajouter</a></li>
+                                <li><a href="/enseignements">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Groupe: Matières -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-book"></i>
+                                <span> Matières </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/matieres/new">Ajouter</a></li>
+                                <li><a href="/matieres">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Groupe: Notes -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-grease-pencil"></i>
+                                <span> Notes </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/notes/new">Ajouter</a></li>
+                                <li><a href="/notes">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Groupe: Trimestres -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-calendar-today"></i>
+                                <span> Trimestres </span>
+                                <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/trimestres/new">Ajouter</a></li>
+                                <li><a href="/trimestres">Liste</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Autres liens -->
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="mdi mdi-map-marker-multiple"></i>
+                                <span> Maps </span>
+                                <span class="badge badge-pill badge-danger float-right">2</span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="/maps/google"><i class="mdi mdi-google-maps"></i> Google Map</a></li>
+                                <li><a href="/maps/vector"><i class="mdi mdi-map"></i> Vector Map</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- ========== Left Sidebar End ========== -->
+    </div>
+
 </div>

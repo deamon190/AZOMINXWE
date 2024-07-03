@@ -1,0 +1,166 @@
+<!-- /src/main/resources/templates/fragments/menu.html -->
+<div th:fragment="sidebar">
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left side-menu">
+        <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect" title="ok">
+            <i class="mdi mdi-close"></i>
+        </button>
+
+        <!-- LOGO -->
+        <div class="topbar-left">
+            <div class="text-center">
+                <a href="/home" class="logo">
+                    <img src="/images/login_logo_white.png" height="60" alt="" class="">
+                </a>
+            </div>
+        </div>
+
+        <div class="sidebar-inner slimscrollleft" id="sidebar-main">
+            <div id="sidebar-menu">
+                <ul>
+                    <li class="menu-title">Menu</li>
+                    <li>
+                        <a href="/home" class="waves-effect">
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span> Accueil </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-title">Gestion Scolaire</li>
+
+                    <!-- Groupe: Années Académiques -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-calendar"></i>
+                            <span> Années Académiques </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/anneesAcademiques/new">Ajouter</a></li>
+                            <li><a href="/anneesAcademiques">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Groupe: Classes -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-domain"></i>
+                            <span> Classes </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/classes/new">Ajouter</a></li>
+                            <li><a href="/classes">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Groupe: Classes Matières -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-book-open-page-variant"></i>
+                            <span> Coefficients </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/classe-matiere/new">Ajouter</a></li>
+                            <li><a href="/classe-matiere">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Groupe: Élèves -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-account-multiple"></i>
+                            <span> Élèves </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/eleves/new">Ajouter</a></li>
+                            <li><a href="/eleves">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Groupe: Enseignants -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-account-settings"></i>
+                            <span> Enseignants </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/enseignants/new">Ajouter</a></li>
+                            <li><a href="/enseignants">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Groupe: Enseignements -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-content-duplicate"></i>
+                            <span> Enseignements </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/enseignements/new">Ajouter</a></li>
+                            <li><a href="/enseignements">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Groupe: Matières -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-book"></i>
+                            <span> Matières </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/matieres/new">Ajouter</a></li>
+                            <li><a href="/matieres">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Groupe: Notes -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-grease-pencil"></i>
+                            <span> Notes </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/notes/new">Ajouter</a></li>
+                            <li><a href="/notes">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Groupe: Trimestres -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-calendar-today"></i>
+                            <span> Trimestres </span>
+                            <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/trimestres/new">Ajouter</a></li>
+                            <li><a href="/trimestres">Liste</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Autres liens -->
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="mdi mdi-map-marker-multiple"></i>
+                            <span> Maps </span>
+                            <span class="badge badge-pill badge-danger float-right">2</span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="/maps/google"><i class="mdi mdi-google-maps"></i> Google Map</a></li>
+                            <li><a href="/maps/vector"><i class="mdi mdi-map"></i> Vector Map</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- ========== Left Sidebar End ========== -->
+</div>

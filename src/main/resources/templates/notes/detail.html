@@ -124,7 +124,6 @@
 
                                                                 <dt class="col-sm-3">Note</dt>
                                                                 <dd class="col-sm-9" th:text="${note.note}"></dd>
-
                                                             </dl>
                                                         </div>
 
@@ -139,7 +138,7 @@
                                                                 <dt class="col-sm-3" style="background-color: #b4b295">Eleve</dt>
                                                                 <dd class="col-sm-9">
                                                                     <select class="form-control" name="eleve.eleveId" th:field="*{eleve.eleveId}">
-                                                                        <option th:each="eleve : ${eleves}" th:value="${eleve[0]}" th:text="${eleve[1]}" th:selected="${eleve[0] == note.eleve.eleveId}"></option>
+                                                                        <option th:each="eleve : ${eleves}" th:value="${eleve[0]}" th:text="${eleve[1]}" th:selected="${eleve[0]} == ${note.eleve.eleveId}"></option>
                                                                     </select>
                                                                 </dd>
                                                                 <div th:if="${#fields.hasErrors('eleve.eleveId')}" th:errors="*{eleve.eleveId}" class="text-danger"></div>
@@ -147,18 +146,19 @@
                                                                 <dt class="col-sm-3" style="background-color: #b4b295">Classe-Matière</dt>
                                                                 <dd class="col-sm-9">
                                                                     <select class="form-control" name="classeMatiere.classeMatiereId" th:field="*{classeMatiere.classeMatiereId}">
-                                                                        <option th:each="classeMatiere : ${classeMatieres}" th:value="${classeMatiere[0]}" th:text="${classeMatiere[1]}" th:selected="${classeMatiere[0] == note.classeMatiere.classeMatiereId}"></option>
+                                                                        <!-- classeMatiere.nomClasse est mis pour nomClasseMatiere-->
+                                                                        <option th:each="classeMatiere : ${classeMatieres}" th:value="${classeMatiere.classeMatiereId}" th:text="${classeMatiere.nomClasse}" th:selected="${classeMatiere.classeMatiereId} == ${note.classeMatiere.classeMatiereId}"></option>
                                                                     </select>
                                                                 </dd>
                                                                 <div th:if="${#fields.hasErrors('classeMatiere.classeMatiereId')}" th:errors="*{classeMatiere.classeMatiereId}" class="text-danger"></div>
 
                                                                 <dt class="col-sm-3" style="background-color: #b4b295">Note</dt>
                                                                 <dd class="col-sm-9">
-                                                                    <input type="number" class="form-control" name="note"  step="0.25" th:field="*{note}">
+                                                                    <input type="number" class="form-control" name="note" step="0.25" th:field="*{note}">
                                                                 </dd>
                                                                 <div th:if="${#fields.hasErrors('note')}" th:errors="*{note}" class="text-danger"></div>
 
-                                                                   </dl>
+                                                            </dl>
                                                             <div class="text-right mt-3">
                                                                 <button type="submit" class="btn btn-primary">Mettre à jour</button>
                                                                 <a href="/notes" class="btn btn-secondary mt-1">Retour à la liste</a>

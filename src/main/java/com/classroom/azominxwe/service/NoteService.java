@@ -22,7 +22,7 @@ public class NoteService {
     }
 
     public List<Note> getNotesParTrimestreActif() {
-        return noteRepository.findByTrimestreActifTrueOrderByEleve();
+        return noteRepository.findByTrimestreActifTrueOrderByEleveNomAscElevePrenomAscClasseMatiere();
     }
 
     public Optional<Note> getNoteById(Long id) {
@@ -48,4 +48,5 @@ public class NoteService {
             noteRepository.save(note);
         }
     }
+
 }
