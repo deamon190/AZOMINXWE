@@ -1,5 +1,6 @@
 package com.classroom.azominxwe.repository;
 
+import com.classroom.azominxwe.model.AnneeAcademique;
 import com.classroom.azominxwe.model.Trimestre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,5 +17,7 @@ public interface TrimestreRepository extends JpaRepository<Trimestre, Long> {
 
     Trimestre findByAnneeAcademique_ActifTrueAndActifTrue();
 Trimestre getByTrimestreId(Long Id);
+
+Trimestre findByNomAndAnneeAcademique(String nom, AnneeAcademique anneeAcademique);
 
 }

@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 @Service
@@ -30,6 +29,9 @@ public class ParentService {
     private TrimestreRepository trimestreRepository;
 
     @Autowired
+    private AnneeAcademiqueRepository anneeAcademiqueRepository;
+
+    @Autowired
     private ClasseMatiereRepository classeMatiereRepository;
 
     public String getMoyenneByMatricule(String matricule) {
@@ -42,38 +44,55 @@ public class ParentService {
         }
 
         Trimestre trimestreActif = getTrimestreActif();
+
+
+        List<MoyenneTrimestre> moyennes = moyenneTrimestreRepository.findByEleveAndTrimestre_AnneeAcademique(eleve, anneeAcademiqueRepository.findByActifTrue());
+
         if (trimestreActif == null) {
-            logger.warning("Aucun trimestre actif trouvé pour l'année académique en cours");
-            return "Aucun trimestre actif trouvé pour l'année académique en cours";
-        }
-
-        List<MoyenneTrimestre> moyennes = moyenneTrimestreRepository.findByEleveAndTrimestre_AnneeAcademique(eleve, trimestreActif.getAnneeAcademique());
-
-        // Si on est en fin d'année, calculer la moyenne annuelle
-        if (trimestreActif.getNom().equals("Trimestre 3")) {
             double moyenneAnnuelle = moyennes.stream()
                     .mapToDouble(MoyenneTrimestre::getMoyenne)
                     .average()
                     .orElse(0.0);
             logger.info("Moyenne annuelle pour le matricule " + matricule + " : " + moyenneAnnuelle);
-            return String.valueOf(moyenneAnnuelle);
+            return "Moyenne annuelle pour le matricule " + matricule + " : " + moyenneAnnuelle;
         }
 
-        // Sinon, retourner la moyenne du trimestre précédent
-        Trimestre trimestrePrecedent = getTrimestrePrecedent(trimestreActif);
-        if (trimestrePrecedent == null) {
-            logger.warning("Aucun trimestre précédent trouvé");
-            return "Aucun trimestre précédent trouvé";
+        LocalDate currentDate = LocalDate.now();
+        String trimestreNom = trimestreActif.getNom();
+
+        if (trimestreNom.equals("Trimestre 1") || currentDate.isBefore(convertToLocalDate(trimestreActif.getDateDebut()))) {
+            logger.warning("Trimestre 1 ou avant début de trimestre actif, aucune moyenne antérieure");
+            return "La moyenne du trimestre précédent n'est pas calculée";
+        } else if (trimestreNom.equals("Trimestre 2")) {
+            return getMoyenneTrimestrePrecedent(moyennes, "Trimestre 1", matricule);
+        } else if (trimestreNom.equals("Trimestre 3")) {
+            return getMoyenneTrimestrePrecedent(moyennes, "Trimestre 2", matricule);
+        } else if (currentDate.isAfter(convertToLocalDate(trimestreActif.getDateFin()))) {
+            double moyenneAnnuelle = moyennes.stream()
+                    .mapToDouble(MoyenneTrimestre::getMoyenne)
+                    .average()
+                    .orElse(0.0);
+            logger.info("Moyenne annuelle pour le matricule " + matricule + " : " + moyenneAnnuelle);
+            return "Moyenne annuelle pour le matricule " + matricule + " : " + moyenneAnnuelle;
+        } else {
+            return "Erreur dans la détermination du trimestre actif.";
         }
+    }
 
-        Set<MoyenneTrimestre> moyennesPrecedentes = moyenneTrimestreRepository.findByEleveAndTrimestre(eleve, trimestrePrecedent);
-
-        double moyennePrecedente = moyennesPrecedentes.stream()
-                .map(MoyenneTrimestre::getMoyenne)
+    private String getMoyenneTrimestrePrecedent(List<MoyenneTrimestre> moyennes, String trimestrePrecedentNom, String matricule) {
+        double moyenne = moyennes.stream()
+                .filter(m -> m.getTrimestre().getNom().equals(trimestrePrecedentNom))
+                .mapToDouble(MoyenneTrimestre::getMoyenne)
                 .findFirst()
                 .orElse(0.0);
-        logger.info("Moyenne du trimestre précédent pour le matricule " + matricule + " : " + moyennePrecedente);
-        return String.valueOf(moyennePrecedente);
+
+        if (moyenne == 0.0) {
+            logger.warning("La moyenne du " + trimestrePrecedentNom + " n'est pas calculée pour le matricule : " + matricule);
+            return "La moyenne du " + trimestrePrecedentNom + " n'est pas calculée";
+        } else {
+            logger.info("Moyenne du " + trimestrePrecedentNom + " pour le matricule " + matricule + " : " + moyenne);
+            return "Moyenne du " + trimestrePrecedentNom + " pour le matricule " + matricule + " : " + moyenne;
+        }
     }
 
     public String getMoyenneByMatriculeAndMatiere(String matricule, Long matiereId) {
@@ -88,7 +107,7 @@ public class ParentService {
         Trimestre trimestreActif = getTrimestreActif();
         if (trimestreActif == null) {
             logger.warning("Aucun trimestre actif trouvé pour l'année académique en cours");
-            return "Aucun trimestre actif trouvé pour l'année académique en cours";
+            return "BAucun trimestre actif trouvé pour l'année académique en cours";
         }
 
         ClasseMatiere classeMatiere = classeMatiereRepository.findById(matiereId)
@@ -125,16 +144,7 @@ public class ParentService {
                 return trimestre;
             }
         }
-        return null;
-    }
-
-    private Trimestre getTrimestrePrecedent(Trimestre trimestreActif) {
-        List<Trimestre> trimestres = trimestreRepository.findByAnneeAcademique_AnneeAcademiqueId(trimestreActif.getAnneeAcademique().getAnneeAcademiqueId());
-        for (Trimestre trimestre : trimestres) {
-            if (trimestre.getNom().equals(trimestreActif.getNom() + " - 1")) {
-                return trimestre;
-            }
-        }
+        //logger.info(trimestreRepository.findByNomAndAnneeAcademique("Trimestre 3",anneeAcademiqueRepository.findByActifTrue()).toString());
         return null;
     }
 
