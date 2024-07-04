@@ -16,4 +16,5 @@ public interface TrimestreRepository extends JpaRepository<Trimestre, Long> {
 
     Trimestre findByAnneeAcademique_ActifTrueAndActifTrue();
 Trimestre getByTrimestreId(Long Id);
+
 }

@@ -79,4 +79,5 @@ public class TrimestreService {
         return trimestreRepository.findByAnneeAcademique_ActifTrueAndActifTrue();
     }
 
+
 }

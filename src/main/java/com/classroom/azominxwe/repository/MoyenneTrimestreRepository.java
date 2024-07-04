@@ -21,4 +21,5 @@ public interface MoyenneTrimestreRepository extends JpaRepository<MoyenneTrimest
     List<MoyenneTrimestre> findByEleveAndTrimestre_AnneeAcademique(Eleve eleve, AnneeAcademique anneeAcademique);
 
     void deleteByEleveAndTrimestreAndClasseNot(Eleve eleve, Trimestre trimestre, Classe classe);
+
 }

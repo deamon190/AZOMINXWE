@@ -17,4 +17,5 @@ public interface MoyenneMatiereRepository extends JpaRepository<MoyenneMatiere, 
 
     Optional<MoyenneMatiere> findByEleveAndClasseMatiereAndTrimestre(Eleve eleve, ClasseMatiere classeMatiere, Trimestre trimestreActif);
 
+
 }
