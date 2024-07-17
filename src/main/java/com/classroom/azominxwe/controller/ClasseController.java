@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 @RequestMapping("/classes")
 public class ClasseController {
     // Au cas où il y aurait des erreurs inattendues
-    private static final Logger logger = Logger.getLogger(EleveController.class.getName());
+    private static final Logger logger = Logger.getLogger(ClasseController.class.getName());
 
     @Autowired
     private ClasseService classeService;
